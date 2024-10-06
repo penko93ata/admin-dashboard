@@ -5,6 +5,7 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "~/components/Navbar";
+import Sidebar from "~/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -20,7 +21,12 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           <Navbar />
-          {children}
+          <div className="flex">
+            <div className="hidden h-[100dvh] md:block">
+              <Sidebar />
+            </div>
+            <div className="w-full p-5 md:max-w-[1140px]">{children}</div>
+          </div>
         </TRPCReactProvider>
       </body>
     </html>
