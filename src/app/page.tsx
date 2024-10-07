@@ -1,6 +1,8 @@
+import { Newspaper, NewspaperIcon } from "lucide-react";
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
+import DashboardCard from "~/components/dashboard/DashboardCard";
 import { Button } from "~/components/ui/button";
 import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
@@ -13,8 +15,18 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <h1 className="text-2xl">Dashboard</h1>
-
+      <div className="mb-5 flex flex-col justify-between gap-5 md:flex-row">
+        <DashboardCard
+          title="Posts"
+          count={100}
+          icon={
+            <Newspaper
+              className="text-slate-500 dark:text-slate-200"
+              size={72}
+            />
+          }
+        />
+      </div>
       {/* <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
