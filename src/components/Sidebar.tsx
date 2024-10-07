@@ -26,15 +26,15 @@ export default function Sidebar() {
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
           <CommandItem>
-            <LayoutDashboard className="wi-4 mr-2 h-4" />
+            <LayoutDashboard className="mr-2 h-4 w-4" />
             <Link href="/">Dashboard</Link>
           </CommandItem>
           <CommandItem>
-            <Newspaper className="wi-4 mr-2 h-4" />
+            <Newspaper className="mr-2 h-4 w-4" />
             <Link href="/posts">Posts</Link>
           </CommandItem>
           <CommandItem>
-            <Folders className="wi-4 mr-2 h-4" />
+            <Folders className="mr-2 h-4 w-4" />
             <Link href="#">Categories</Link>
           </CommandItem>
         </CommandGroup>
