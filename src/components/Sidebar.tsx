@@ -21,7 +21,10 @@ import Link from "next/link";
 export default function Sidebar() {
   return (
     <Command className="rounded-none bg-secondary">
-      <CommandInput placeholder="Type a command or search..." />
+      <CommandInput
+        className="text-ellipsis"
+        placeholder="Type a command or search..."
+      />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
