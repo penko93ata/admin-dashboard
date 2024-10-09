@@ -19,7 +19,7 @@ export default function DashboardCard({
         <h3 className="mb-4 text-center text-3xl font-bold text-slate-500 dark:text-slate-200">
           {title}
         </h3>
-        <div className="flex items-center justify-center gap-5">
+        <div className="grid grid-cols-[auto_auto] items-center justify-center gap-5">
           {icon}
           <h3 className="text-5xl font-semibold text-slate-500 dark:text-slate-200">
             {count}

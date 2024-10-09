@@ -1,4 +1,10 @@
-import { Newspaper, NewspaperIcon } from "lucide-react";
+import {
+  Folder,
+  MessageCircle,
+  Newspaper,
+  NewspaperIcon,
+  User,
+} from "lucide-react";
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
@@ -15,12 +21,37 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <div className="mb-5 flex flex-col justify-between gap-5 md:flex-row">
+      {/* <div className="mb-5 flex flex-col justify-between gap-5 md:flex-row"> */}
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5">
         <DashboardCard
           title="Posts"
           count={100}
           icon={
             <Newspaper
+              className="text-slate-500 dark:text-slate-200"
+              size={72}
+            />
+          }
+        />
+        <DashboardCard
+          title="Categories"
+          count={12}
+          icon={
+            <Folder className="text-slate-500 dark:text-slate-200" size={72} />
+          }
+        />
+        <DashboardCard
+          title="Users"
+          count={750}
+          icon={
+            <User className="text-slate-500 dark:text-slate-200" size={72} />
+          }
+        />
+        <DashboardCard
+          title="Comments"
+          count={1200}
+          icon={
+            <MessageCircle
               className="text-slate-500 dark:text-slate-200"
               size={72}
             />
