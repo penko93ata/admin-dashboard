@@ -1,6 +1,5 @@
 import { Card, CardContent } from "../ui/card";
-import { Newspaper } from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
 type DashboardCardProps = {
   title: React.ReactNode;
