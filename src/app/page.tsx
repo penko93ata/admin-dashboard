@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
-import DashboardCard from "~/components/dashboard/DashboardCard";
+import DashboardCard from "~/app/_components/dashboard/DashboardCard";
 import { Button } from "~/components/ui/button";
 import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";

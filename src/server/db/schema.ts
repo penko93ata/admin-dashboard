@@ -41,6 +41,14 @@ export const posts = createTable(
   }),
 );
 
+export const postsRelations = relations(posts, ({ one, many }) => ({
+  author: one(users, {
+    fields: [posts.createdById],
+    references: [users.id],
+  }),
+  comments: many(comments),
+}));
+
 export const comments = createTable("comment", {
   id: serial("id").primaryKey(),
   text: varchar("text", { length: 255 }).notNull(),
