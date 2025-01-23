@@ -1,0 +1,2 @@
+ALTER TABLE "admin-dashboard_posts_to_categories" ALTER COLUMN "post_id" SET DATA TYPE serial;--> statement-breakpoint
+ALTER TABLE "admin-dashboard_posts_to_categories" ALTER COLUMN "category_id" SET DATA TYPE serial;

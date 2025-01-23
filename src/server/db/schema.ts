@@ -47,7 +47,46 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
     references: [users.id],
   }),
   comments: many(comments),
+  postCategories: many(postToCategories),
 }));
+
+export const categories = createTable("category", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+});
+
+export const categoryRelations = relations(categories, ({ many }) => ({
+  postCategories: many(postToCategories),
+}));
+
+export const postToCategories = createTable(
+  "posts_to_categories",
+  {
+    postId: serial("post_id")
+      .references(() => posts.id)
+      .notNull(),
+    categoryId: serial("category_id")
+      .references(() => categories.id)
+      .notNull(),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.postId, t.categoryId] }),
+  }),
+);
+
+export const postCategoriesRelations = relations(
+  postToCategories,
+  ({ one }) => ({
+    post: one(posts, {
+      fields: [postToCategories.postId],
+      references: [posts.id],
+    }),
+    category: one(categories, {
+      fields: [postToCategories.categoryId],
+      references: [categories.id],
+    }),
+  }),
+);
 
 export const comments = createTable("comment", {
   id: serial("id").primaryKey(),

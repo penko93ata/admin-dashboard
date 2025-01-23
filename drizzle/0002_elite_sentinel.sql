@@ -1,0 +1,2 @@
+ALTER TABLE "admin-dashboard_postCategory" ALTER COLUMN "postId" SET DATA TYPE integer;--> statement-breakpoint
+ALTER TABLE "admin-dashboard_postCategory" ALTER COLUMN "categoryId" SET DATA TYPE integer;

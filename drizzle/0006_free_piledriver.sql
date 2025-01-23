@@ -1,0 +1,1 @@
+ALTER TABLE "admin-dashboard_posts_to_categories" ADD CONSTRAINT "admin-dashboard_posts_to_categories_post_id_category_id_pk" PRIMARY KEY("post_id","category_id");
