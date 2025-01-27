@@ -18,6 +18,9 @@ export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
+  const user = await api.user.getById("2e297f9a-63f5-41e1-a970-b18099f81358");
+  console.log({ user });
+
   void api.post.getLatest.prefetch();
 
   return (
