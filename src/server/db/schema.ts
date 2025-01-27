@@ -91,14 +91,24 @@ export const postCategoriesRelations = relations(
 export const comments = createTable("comment", {
   id: serial("id").primaryKey(),
   text: varchar("text", { length: 255 }).notNull(),
-  postId: integer("post_id"),
-  authorId: integer("author_id"),
+  postId: varchar("post_id", { length: 255 }).notNull(),
+  authorId: varchar("author_id", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+    () => new Date(),
+  ),
 });
 
 export const commentsRelations = relations(comments, ({ one }) => ({
   post: one(posts, {
     fields: [comments.postId],
     references: [posts.id],
+  }),
+  user: one(users, {
+    fields: [comments.authorId],
+    references: [users.id],
   }),
 }));
 
