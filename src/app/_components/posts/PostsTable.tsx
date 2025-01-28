@@ -19,7 +19,7 @@ type PostTableProps = {
 };
 
 export function PostsTable({ limit, title }: PostTableProps) {
-  const { data: posts = [], isFetching } = api.post.getPosts.useQuery();
+  const { data: posts = [], isFetching } = api.post.getLatestPosts.useQuery();
 
   return (
     <div className="mt-10">
