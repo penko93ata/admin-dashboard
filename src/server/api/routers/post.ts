@@ -26,12 +26,39 @@ export const postRouter = createTRPCRouter({
       });
     }),
 
+  // createManually: publicProcedure
+  //   .input(
+  //     z.object({
+  //       title: z.string().min(1),
+  //       body: z.string().min(1),
+  //       authorId: z.string().min(1),
+  //     }),
+  //   )
+  //   .mutation(async ({ ctx, input }) => {
+  //     await ctx.db.insert(posts).values({
+  //       title: input.title,
+  //       body: input.body,
+  //       createdById: input.authorId,
+  //     });
+  //   }),
+
   getLatest: publicProcedure.query(async ({ ctx }) => {
     const post = await ctx.db.query.posts.findFirst({
       orderBy: (posts, { desc }) => [desc(posts.createdAt)],
     });
 
     return post ?? null;
+  }),
+
+  getPosts: publicProcedure.query(async ({ ctx }) => {
+    const posts = await ctx.db.query.posts.findMany({
+      orderBy: (posts, { desc }) => [desc(posts.createdAt)],
+      with: {
+        author: true,
+      },
+    });
+
+    return posts ?? null;
   }),
 
   getSecretMessage: protectedProcedure.query(() => {

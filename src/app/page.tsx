@@ -18,10 +18,11 @@ export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
-  const user = await api.user.getById("2e297f9a-63f5-41e1-a970-b18099f81358");
-  console.log({ user });
+  const USER_ID = "2e297f9a-63f5-41e1-a970-b18099f81358";
+  const USER_ID_2 = "6b7a8a0b-0fbb-4708-b7f8-a040551f5366";
 
-  void api.post.getLatest.prefetch();
+  // void api.post.getLatest.prefetch();
+  void api.post.getPosts.prefetch();
 
   return (
     <HydrateClient>
@@ -63,7 +64,7 @@ export default async function Home() {
         />
       </div>
       <PostsTable title="Latest Posts" />
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+      {/* <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
@@ -112,7 +113,7 @@ export default async function Home() {
 
           {session?.user && <LatestPost />}
         </div>
-      </main>
+      </main> */}
     </HydrateClient>
   );
 }
