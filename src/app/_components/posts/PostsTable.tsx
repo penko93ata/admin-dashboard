@@ -4,7 +4,6 @@ import { Button } from "~/components/ui/button";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -25,7 +24,6 @@ export function PostsTable({ title, posts }: PostTableProps) {
     <div className="mt-10">
       <h3 className="mb-4 text-2xl font-semibold">{title ?? "Posts"}</h3>
       <Table>
-        <TableCaption>A list of recent posts</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
