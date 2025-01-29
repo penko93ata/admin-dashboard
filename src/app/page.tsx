@@ -13,6 +13,7 @@ import { Button } from "~/components/ui/button";
 import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import { PostsTable } from "./_components/posts/PostsTable";
+import AnalyticsChart from "./_components/dashboard/AnalyticsChart";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -26,8 +27,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      {/* <div className="mb-5 flex flex-col justify-between gap-5 md:flex-row"> */}
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5">
+      <div className="mb-5 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5">
         <DashboardCard
           title="Posts"
           count={100}
@@ -63,6 +63,7 @@ export default async function Home() {
           }
         />
       </div>
+      <AnalyticsChart />
       <PostsTable title="Latest Posts" />
       {/* <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
