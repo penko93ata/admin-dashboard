@@ -1,6 +1,4 @@
-"use client";
-
-import { InferSelectModel } from "drizzle-orm";
+import { type InferSelectModel } from "drizzle-orm";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import {
@@ -13,7 +11,6 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { type posts, type users } from "~/server/db/schema";
-import { api } from "~/trpc/react";
 
 type SelectUser = InferSelectModel<typeof users>;
 type SelectPosts = InferSelectModel<typeof posts> & { author: SelectUser };
