@@ -9,14 +9,11 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { type posts, type users } from "~/server/db/schema";
-
-type SelectUser = InferSelectModel<typeof users>;
-type SelectPosts = InferSelectModel<typeof posts> & { author: SelectUser };
+import { SelectPost } from "~/types/posts";
 
 type PostTableProps = {
   title?: string;
-  posts: SelectPosts[];
+  posts: SelectPost[];
 };
 
 export function PostsTable({ title, posts }: PostTableProps) {
