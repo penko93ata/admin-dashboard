@@ -1,4 +1,6 @@
+import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { updatePostSchema } from "~/schema/updatePost.schema";
 
 import {
   createTRPCRouter,
@@ -85,6 +87,18 @@ export const postRouter = createTRPCRouter({
 
     return posts ?? null;
   }),
+
+  updatePost: publicProcedure
+    .input(z.object({ id: z.number() }).merge(updatePostSchema))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db
+        .update(posts)
+        .set({
+          title: input.title,
+          body: input.body,
+        })
+        .where(eq(posts.id, input.id));
+    }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";

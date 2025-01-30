@@ -22,28 +22,25 @@ import {
 } from "~/components/ui/popover";
 import { Textarea } from "~/components/ui/textarea";
 import { cn } from "~/lib/utils";
+import { updatePostSchema } from "~/schema/updatePost.schema";
+import { api } from "~/trpc/react";
 import { SelectPost } from "~/types/posts";
 
-const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  body: z.string().min(1, { message: "Body is required" }),
-  author: z.string().min(1, { message: "Author is required" }),
-  date: z.date().default(() => new Date()),
-});
-
 export default function EditPostForm({ post }: { post: SelectPost | null }) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof updatePostSchema>>({
+    resolver: zodResolver(updatePostSchema),
     defaultValues: {
       title: post?.title ?? "",
       body: post?.body ?? "",
-      author: post?.author?.name ?? "",
-      date: post?.createdAt ?? new Date(),
+      //   author: post?.author?.name ?? "",
+      //   date: post?.createdAt ?? new Date(),
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const { mutate: updatePost } = api.post.updatePost.useMutation();
+
+  const onSubmit = (data: z.infer<typeof updatePostSchema>) => {
+    updatePost({ id: post!.id, ...data });
   };
 
   return (
@@ -87,7 +84,7 @@ export default function EditPostForm({ post }: { post: SelectPost | null }) {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="author"
           render={({ field }) => (
@@ -146,7 +143,7 @@ export default function EditPostForm({ post }: { post: SelectPost | null }) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <Button className="w-full dark:bg-slate-800 dark:text-white">
           Update Post
         </Button>
