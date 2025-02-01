@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
@@ -37,7 +38,12 @@ export default function EditPostForm({ post }: { post: SelectPost | null }) {
     },
   });
 
-  const { mutate: updatePost } = api.post.updatePost.useMutation();
+  const { mutate: updatePost, isPending } = api.post.updatePost.useMutation({
+    onSuccess: (data) =>
+      toast.success("Post has updated successfully", {
+        description: `Updated on ${data[0]?.updatedAt?.toDateString()}`,
+      }),
+  });
 
   const onSubmit = (data: z.infer<typeof updatePostSchema>) => {
     updatePost({ id: post!.id, ...data });
@@ -144,7 +150,10 @@ export default function EditPostForm({ post }: { post: SelectPost | null }) {
             </FormItem>
           )}
         /> */}
-        <Button className="w-full dark:bg-slate-800 dark:text-white">
+        <Button
+          disabled={isPending}
+          className="w-full dark:bg-slate-800 dark:text-white"
+        >
           Update Post
         </Button>
       </form>

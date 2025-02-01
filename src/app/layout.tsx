@@ -6,6 +6,7 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import Navbar from "~/components/Navbar";
 import Sidebar from "~/components/Sidebar";
+import { Toaster } from "~/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -28,6 +29,7 @@ export default function RootLayout({
             <div className="w-full p-5 md:max-w-[1140px]">{children}</div>
           </div>
         </TRPCReactProvider>
+        <Toaster position="top-center" closeButton richColors />
       </body>
     </html>
   );

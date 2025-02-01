@@ -97,7 +97,11 @@ export const postRouter = createTRPCRouter({
           title: input.title,
           body: input.body,
         })
-        .where(eq(posts.id, input.id));
+        .where(eq(posts.id, input.id))
+        .returning({
+          createdById: posts.createdById,
+          updatedAt: posts.updatedAt,
+        });
     }),
 
   getSecretMessage: protectedProcedure.query(() => {
