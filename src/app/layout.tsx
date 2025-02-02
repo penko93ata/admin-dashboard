@@ -27,7 +27,15 @@ export default function RootLayout({
           enableSystem={true}
           storageKey="dashboard-theme"
         >
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <Navbar />
+            <div className="flex">
+              <div className="hidden h-[100vh] w-[300px] md:block">
+                <Sidebar />
+              </div>
+              <div className="w-full p-5 md:max-w-[1140px]">{children}</div>
+            </div>
+          </TRPCReactProvider>
         </ThemeProvider>
         <Toaster position="top-center" closeButton richColors />
       </body>
