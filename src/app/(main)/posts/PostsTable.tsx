@@ -1,4 +1,3 @@
-import { type InferSelectModel } from "drizzle-orm";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import {
@@ -9,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { SelectPost } from "~/types/posts";
+import { type SelectPost } from "~/types/posts";
 
 type PostTableProps = {
   title?: string;
