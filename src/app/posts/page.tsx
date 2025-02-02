@@ -1,8 +1,8 @@
 import { api } from "~/trpc/server";
-import { PostsTable } from "../_components/posts/PostsTable";
+import { PostsTable } from "../(main)/posts/PostsTable";
 import { Suspense } from "react";
 import BackButton from "~/components/BackButton";
-import PostsPagination from "../_components/posts/PostsPagination";
+import PostsPagination from "../(main)/posts/PostsPagination";
 
 export default async function PostsPage() {
   const posts = await api.post.getPosts();

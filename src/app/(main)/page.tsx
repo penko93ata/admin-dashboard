@@ -12,8 +12,8 @@ import DashboardCard from "~/app/_components/dashboard/DashboardCard";
 import { Button } from "~/components/ui/button";
 import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
-import { PostsTable } from "./_components/posts/PostsTable";
-import AnalyticsChart from "./_components/dashboard/AnalyticsChart";
+import AnalyticsChart from "../_components/dashboard/AnalyticsChart";
+import { PostsTable } from "./posts/PostsTable";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });

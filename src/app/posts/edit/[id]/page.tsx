@@ -3,7 +3,7 @@ import { z } from "zod";
 import BackButton from "~/components/BackButton";
 // import { api } from "~/trpc/react";
 import { api } from "~/trpc/server";
-import EditPostForm from "~/app/_components/posts/EditPostForm";
+import EditPostForm from "~/app/(main)/posts/EditPostForm";
 import { Suspense } from "react";
 
 type PostEditPageProps = {
