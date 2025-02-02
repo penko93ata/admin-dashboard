@@ -3,6 +3,8 @@ import { PostsTable } from "../(main)/posts/PostsTable";
 import { Suspense } from "react";
 import BackButton from "~/components/BackButton";
 import PostsPagination from "../(main)/posts/PostsPagination";
+import { DataTable } from "../(main)/posts/data-table";
+import { columns } from "../(main)/posts/columns";
 
 export default async function PostsPage() {
   const posts = await api.post.getPosts();
@@ -10,8 +12,7 @@ export default async function PostsPage() {
     <>
       <BackButton text="Go Back" link="/" />
       <Suspense fallback={<div>Loading...</div>}>
-        <PostsTable posts={posts} />
-        <PostsPagination />
+        <DataTable columns={columns} data={posts} />
       </Suspense>
     </>
   );
