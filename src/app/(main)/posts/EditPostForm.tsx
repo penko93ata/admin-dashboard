@@ -151,6 +151,7 @@ export default function EditPostForm({ post }: { post: SelectPost | null }) {
           )}
         /> */}
         <Button
+          type="submit"
           disabled={isPending}
           className="w-full dark:bg-slate-800 dark:text-white"
         >
