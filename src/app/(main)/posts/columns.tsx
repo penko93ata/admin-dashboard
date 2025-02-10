@@ -48,7 +48,7 @@ export const columns: ColumnDef<SelectPost>[] = [
     accessorKey: "createdAt",
     header: () => <div className="hidden text-right md:table-cell">Date</div>,
     cell: ({ row }) => new Date(row.getValue("createdAt")).toLocaleDateString(),
-    meta: { columnClasses: "hidden text-right md:table-cell" } as ColumnMeta,
+    meta: { columnClasses: "hidden md:table-cell" } as ColumnMeta,
   },
   {
     id: "actions",

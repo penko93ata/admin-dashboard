@@ -17,6 +17,7 @@ import {
 } from "~/components/ui/table";
 import { type ColumnMeta } from "./columns";
 import { DataTablePagination } from "./data-table-pagination";
+import { DEFAULT_TABLE_PAGE_COUNT } from "~/lib/constants";
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -98,7 +99,9 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {table.getPageCount() > DEFAULT_TABLE_PAGE_COUNT && (
+        <DataTablePagination table={table} />
+      )}
     </>
   );
 }
