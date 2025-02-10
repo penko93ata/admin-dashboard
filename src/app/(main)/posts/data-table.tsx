@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
+  VisibilityState,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -18,6 +19,15 @@ import {
 import { type ColumnMeta } from "./columns";
 import { DataTablePagination } from "./data-table-pagination";
 import { DEFAULT_TABLE_PAGE_COUNT } from "~/lib/constants";
+import { useState } from "react";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import { Button } from "~/components/ui/button";
+import { ChevronDown } from "lucide-react";
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -28,15 +38,49 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: {
+      columnVisibility,
+    },
   });
 
   return (
     <>
+      <div className="flex items-center py-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              Columns <ChevronDown />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
