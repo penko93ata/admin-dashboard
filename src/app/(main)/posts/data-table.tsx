@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
-  VisibilityState,
+  type VisibilityState,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -18,8 +18,8 @@ import {
 } from "~/components/ui/table";
 import { type ColumnMeta } from "./columns";
 import { DataTablePagination } from "./data-table-pagination";
-import { DEFAULT_TABLE_PAGE_COUNT } from "~/lib/constants";
-import { useState } from "react";
+import { DEFAULT_TABLE_PAGE_SIZE } from "~/lib/constants";
+import { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -28,6 +28,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { Button } from "~/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import useWindowSize from "~/lib/useWindowSize";
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
@@ -50,6 +51,27 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   });
+
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    if (width < 768) {
+      table.setColumnVisibility({
+        select: false,
+        author_name: false,
+        createdAt: false,
+      });
+    } else {
+      console.log("Desktop");
+      table.setColumnVisibility({
+        select: true,
+        author_name: true,
+        createdAt: true,
+      });
+    }
+  }, [width, table]);
+
+  console.log({ columns: table.getAllColumns() });
 
   return (
     <>
@@ -143,7 +165,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {table.getPageCount() > DEFAULT_TABLE_PAGE_COUNT && (
+      {table.getCoreRowModel().rows.length > DEFAULT_TABLE_PAGE_SIZE && (
         <DataTablePagination table={table} />
       )}
     </>
