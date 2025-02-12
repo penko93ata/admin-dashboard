@@ -16,7 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { type ColumnMeta } from "./columns";
+// import { type ColumnMeta } from "./columns";
 import { DataTablePagination } from "./data-table-pagination";
 import { DEFAULT_TABLE_PAGE_SIZE } from "~/lib/constants";
 import { useEffect, useState } from "react";
@@ -96,7 +96,9 @@ export function DataTable<TData, TValue>({
                       column.toggleVisibility(!!value)
                     }
                   >
-                    {column.id}
+                    {typeof column.columnDef.header === "string"
+                      ? column.columnDef.header
+                      : column.id}
                   </DropdownMenuCheckboxItem>
                 );
               })}
@@ -112,10 +114,10 @@ export function DataTable<TData, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      className={
-                        (header.column.columnDef.meta as ColumnMeta)
-                          ?.columnClasses
-                      }
+                      // className={
+                      //   (header.column.columnDef.meta as ColumnMeta)
+                      //     ?.columnClasses
+                      // }
                     >
                       {header.isPlaceholder
                         ? null
@@ -139,10 +141,10 @@ export function DataTable<TData, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className={
-                        (cell.column.columnDef.meta as ColumnMeta)
-                          ?.columnClasses
-                      }
+                      // className={
+                      //   (cell.column.columnDef.meta as ColumnMeta)
+                      //     ?.columnClasses
+                      // }
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

@@ -13,9 +13,9 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { type SelectPost } from "~/types/posts";
 
-export interface ColumnMeta {
-  columnClasses: string;
-}
+// export interface ColumnMeta {
+//   columnClasses: string;
+// }
 
 export const columns: ColumnDef<SelectPost>[] = [
   {
@@ -42,13 +42,13 @@ export const columns: ColumnDef<SelectPost>[] = [
   {
     accessorKey: "author.name",
     header: "Author",
-    meta: { columnClasses: "hidden md:table-cell" } as ColumnMeta,
+    // meta: { columnClasses: "hidden md:table-cell" } as ColumnMeta,
   },
   {
     accessorKey: "createdAt",
-    header: () => <div className="hidden text-right md:table-cell">Date</div>,
+    header: "Created At",
     cell: ({ row }) => new Date(row.getValue("createdAt")).toLocaleDateString(),
-    meta: { columnClasses: "hidden md:table-cell" } as ColumnMeta,
+    // meta: { columnClasses: "hidden md:table-cell" } as ColumnMeta,
   },
   {
     id: "actions",
