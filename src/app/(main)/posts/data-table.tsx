@@ -62,7 +62,6 @@ export function DataTable<TData, TValue>({
         createdAt: false,
       });
     } else {
-      console.log("Desktop");
       table.setColumnVisibility({
         select: true,
         author_name: true,
@@ -70,8 +69,6 @@ export function DataTable<TData, TValue>({
       });
     }
   }, [width, table]);
-
-  console.log({ columns: table.getAllColumns() });
 
   return (
     <>
