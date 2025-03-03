@@ -8,6 +8,7 @@ import Navbar from "~/components/Navbar";
 import Sidebar from "~/components/Sidebar";
 import { Toaster } from "~/components/ui/sonner";
 import { ThemeProvider } from "./_components/providers/ThemeProvider";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",

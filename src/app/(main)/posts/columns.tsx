@@ -11,11 +11,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { api } from "~/trpc/react";
 import { type SelectPost } from "~/types/posts";
-
-// export interface ColumnMeta {
-//   columnClasses: string;
-// }
 
 export const columns: ColumnDef<SelectPost>[] = [
   {
@@ -55,6 +52,9 @@ export const columns: ColumnDef<SelectPost>[] = [
     cell: ({ row }) => {
       const post = row.original;
 
+      const { mutate: deletePost, isPending } =
+        api.post.deletePost.useMutation();
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -69,6 +69,12 @@ export const columns: ColumnDef<SelectPost>[] = [
               onClick={() => navigator.clipboard.writeText(post.id.toString())}
             >
               Copy Post ID
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => deletePost(post.id)}
+              disabled={isPending}
+            >
+              Delete Post
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

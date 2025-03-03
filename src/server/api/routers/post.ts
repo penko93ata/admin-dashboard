@@ -104,6 +104,12 @@ export const postRouter = createTRPCRouter({
         });
     }),
 
+  deletePost: protectedProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.delete(posts).where(eq(posts.id, input));
+    }),
+
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
