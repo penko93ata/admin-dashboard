@@ -8,7 +8,8 @@ import Navbar from "~/components/Navbar";
 import Sidebar from "~/components/Sidebar";
 import { Toaster } from "~/components/ui/sonner";
 import { ThemeProvider } from "./_components/providers/ThemeProvider";
-import { SessionProvider } from "next-auth/react";
+import { type Session } from "next-auth";
+import NextAuthProvider from "~/context/NextAuthProvider";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -18,7 +19,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  session,
+}: Readonly<{ children: React.ReactNode; session: Session }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
@@ -29,13 +31,15 @@ export default function RootLayout({
           storageKey="dashboard-theme"
         >
           <TRPCReactProvider>
-            <Navbar />
-            <div className="flex">
-              <div className="hidden h-[100vh] w-[300px] md:block">
-                <Sidebar />
+            <NextAuthProvider session={session}>
+              <Navbar />
+              <div className="flex">
+                <div className="hidden h-[100vh] w-[300px] md:block">
+                  <Sidebar />
+                </div>
+                <div className="w-full p-5 md:max-w-[1140px]">{children}</div>
               </div>
-              <div className="w-full p-5 md:max-w-[1140px]">{children}</div>
-            </div>
+            </NextAuthProvider>
           </TRPCReactProvider>
         </ThemeProvider>
         <Toaster position="top-center" closeButton richColors />
