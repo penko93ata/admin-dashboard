@@ -63,10 +63,12 @@ export const columns: ColumnDef<SelectPost>[] = [
   },
 ];
 
-function PostsActionsCell({ row }: CellContext<SelectPost, unknown>) {
+function PostsActionsCell({ table, row }: CellContext<SelectPost, unknown>) {
   const post = row.original;
 
-  const { mutate: deletePost, isPending } = api.post.deletePost.useMutation();
+  const { mutate: deletePost, isPending } = api.post.deletePost.useMutation({
+    onSuccess: () => table.toggleAllPageRowsSelected(false),
+  });
 
   const { data: session } = useSession();
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
