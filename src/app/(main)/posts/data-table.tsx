@@ -16,7 +16,6 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-// import { type ColumnMeta } from "./columns";
 import { DataTablePagination } from "./data-table-pagination";
 import { DEFAULT_TABLE_PAGE_SIZE } from "~/lib/constants";
 import { useEffect, useState } from "react";
@@ -109,13 +108,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      // className={
-                      //   (header.column.columnDef.meta as ColumnMeta)
-                      //     ?.columnClasses
-                      // }
-                    >
+                    <TableHead key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(

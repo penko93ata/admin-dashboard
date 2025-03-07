@@ -1,17 +1,17 @@
-import { api } from "~/trpc/server";
+import { api, HydrateClient } from "~/trpc/server";
 import { Suspense } from "react";
 import BackButton from "~/components/BackButton";
-import { DataTable } from "../(main)/posts/data-table";
-import { columns } from "../(main)/posts/columns";
+import { Posts } from "../(main)/posts/Posts";
 
 export default async function PostsPage() {
-  const posts = await api.post.getPosts();
+  void api.post.getPosts.prefetch();
+
   return (
-    <>
+    <HydrateClient>
       <BackButton text="Go Back" link="/" />
       <Suspense fallback={<div>Loading...</div>}>
-        <DataTable columns={columns} data={posts} />
+        <Posts />
       </Suspense>
-    </>
+    </HydrateClient>
   );
 }

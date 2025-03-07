@@ -1,22 +1,13 @@
 import { Folder, MessageCircle, Newspaper, User } from "lucide-react";
 
 import DashboardCard from "~/app/_components/dashboard/DashboardCard";
-import { getServerAuthSession } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
 import AnalyticsChart from "../_components/dashboard/AnalyticsChart";
-import { DataTable } from "./posts/data-table";
-import { columns } from "./posts/columns";
+import { Suspense } from "react";
+import { LatestPosts } from "./posts/LatestPosts";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await getServerAuthSession();
-
-  const USER_ID = "2e297f9a-63f5-41e1-a970-b18099f81358";
-  const USER_ID_2 = "6b7a8a0b-0fbb-4708-b7f8-a040551f5366";
-
-  // void api.post.getLatest.prefetch();
-  // void api.post.getPosts.prefetch();
-  const posts = await api.post.getLatestPosts();
+  void api.post.getLatestPosts.prefetch();
 
   return (
     <HydrateClient>
@@ -57,7 +48,9 @@ export default async function Home() {
         />
       </div>
       <AnalyticsChart />
-      <DataTable columns={columns} data={posts} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LatestPosts />
+      </Suspense>
     </HydrateClient>
   );
 }
